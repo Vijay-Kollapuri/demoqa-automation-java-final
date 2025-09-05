@@ -9,13 +9,24 @@ public class DatePickerPage {
     private WebDriver driver;
     private By datePickerInput = By.id("datePickerMonthYearInput");
 
-    public DatePickerPage(WebDriver driver) { this.driver = driver; }
-    public void open() { driver.get("https://demoqa.com/date-picker"); }
+    public DatePickerPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void open() {
+        driver.get("https://demoqa.com/date-picker");
+    }
+
     public void setDate(String dateText) {
         WebElement el = driver.findElement(datePickerInput);
-        el.clear();
+        // ✅ Select all text (CTRL+A) and clear before entering
+        el.sendKeys(Keys.CONTROL + "a");
+        el.sendKeys(Keys.DELETE);
         el.sendKeys(dateText);
         el.sendKeys(Keys.ENTER);
     }
-    public String getDateValue() { return driver.findElement(datePickerInput).getAttribute("value"); }
+
+    public String getDateValue() {
+        return driver.findElement(datePickerInput).getAttribute("value");
+    }
 }
